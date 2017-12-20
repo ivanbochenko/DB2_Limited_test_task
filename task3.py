@@ -16,26 +16,27 @@
 #     ("Json", "21", "185", "75"),
 #     ("Tom", "19", "167", "54"),
 # ]
+from operator import itemgetter
 
 
-def e_sort(list):
-    return list[0][0]
+def handle_list_of_tuples(list):
+    sorted_list = sorted(list, key=itemgetter(0))
+    for col in range(len(list[0])):
+        for row in range(len(list)):
+            if sorted_list[row][col] == sorted_list[row - 1][col]:
+                sorted_list[row - 1:row +
+                            1] = sorted(sorted_list[row - 1:row + 1], key=itemgetter(col + 1), reverse=True)
 
-
-# def handle_list_of_tuples(list):
-#     sorted_list = []
-#     for i in list:
+    return sorted_list
 
 
 list = [
     ("Tom", "19", "167", "54"),
     ("Jony", "24", "180", "69"),
-    ("Json", "21", "185", "75")
+    ("Json", "21", "185", "75"),
     ("John", "27", "190", "87"),
     ("Jony", "24", "191", "98"),
 ]
 
-s_list = sorted(list, key=e_sort)
 
-print(s_list)
-# print(handle_list_of_tuples(list))
+print(handle_list_of_tuples(list))
